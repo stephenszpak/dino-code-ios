@@ -53,7 +53,7 @@ final class GameScene: SKScene {
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
     /// `didMove(to:)` can fire more than once for the same scene instance -
-    /// e.g. toggling the skin picker removes the `SpriteView` from the
+    /// e.g. toggling the skin picker removes the `SpriteVie w` from the
     /// SwiftUI hierarchy and later re-adds it, wrapping this *same*
     /// `GameScene` in a brand-new `SKView`. Guard one-time setup so we don't
     /// try to re-add `boardLayer` (which SpriteKit rejects since it already

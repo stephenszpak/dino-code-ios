@@ -1,12 +1,18 @@
 # macOS
 .DS_Store
 
-# Xcode project - regenerated from project.yml via `xcodegen generate`,
-# so it doesn't need to be committed (and merges badly if it is).
-DinoCode.xcodeproj/
-
-# Xcode user/build state (kept anyway in case the project file itself
-# is ever committed on a fork that skips xcodegen)
+# DinoCode.xcodeproj IS committed (see below) even though it's generated
+# from project.yml via `xcodegen generate` - Xcode Cloud's workflow setup
+# needs to find a real .xcodeproj at the repo root, and only runs
+# ci_scripts/ci_post_clone.sh (which would otherwise regenerate it) *after*
+# that check. Run `xcodegen generate` and commit the result whenever
+# project.yml or the file layout changes.
+#
+# Only the per-user, machine-local bits of it are ignored:
+DinoCode.xcodeproj/xcuserdata/
+DinoCode.xcodeproj/project.xcworkspace/xcuserdata/
+DinoCode.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/
+DinoCode.xcodeproj/xcshareddata/xcbaselines/
 xcuserdata/
 *.xcuserstate
 *.xcscmblueprint

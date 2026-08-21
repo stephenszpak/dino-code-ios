@@ -38,3 +38,16 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         INFOPLIST_KEY_UIApplicationSceneManifest_Generation: true
         INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents: true
+
+# Explicit *shared* scheme so a fresh, non-interactive checkout (Xcode Cloud,
+# or any headless `xcodebuild`) can find something to build/archive. Without
+# this, xcodegen leaves scheme creation to Xcode's "autocreate" behavior,
+# which only exists in your local xcuserdata (gitignored, and Xcode Cloud
+# never sees it since it clones the repo fresh).
+schemes:
+  DinoCode:
+    build:
+      targets:
+        DinoCode: all
+    archive:
+      config: Release

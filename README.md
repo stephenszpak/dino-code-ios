@@ -27,9 +27,11 @@ celebration, and PLAY turns into a NEXT LEVEL button.
 
 - Xcode 16+ / iPadOS 17+
 - [XcodeGen](https://github.com/yonaskolb/XcodeGen) (`brew install xcodegen`)
-  - The `.xcodeproj` is generated from [`project.yml`](project.yml) and is
-    **not** committed to git - regenerate it after cloning, and again
-    anytime you add/remove/rename a file.
+  - `DinoCode.xcodeproj` is generated from [`project.yml`](project.yml) - it
+    **is** committed (Xcode Cloud's workflow setup needs to find a real
+    project at the repo root), so regenerate and re-commit it any time
+    `project.yml` changes or you add/remove/rename a source file:
+    `xcodegen generate`.
 
 ## Getting started
 
@@ -69,13 +71,25 @@ their files rather than buried in the drawing code - `DinoShapeBuilder.swift`
 (shape) and `DinoNode.swift` (animation) are the two most fun to open and
 change live in Xcode ("watch what happens if I change this number").
 
+## Continuous delivery (Xcode Cloud → TestFlight)
+
+Every push to the tracked branch triggers an Xcode Cloud build that archives
+and uploads straight to TestFlight.
+[`ci_scripts/ci_post_clone.sh`](ci_scripts/ci_post_clone.sh) re-runs
+`xcodegen generate` right after Xcode Cloud clones the repo (its documented
+hook for exactly this), as a safety net in case the committed
+`DinoCode.xcodeproj` was ever pushed out of sync with `project.yml` - the
+committed project is what lets Xcode Cloud's workflow setup find a project
+to build against in the first place.
+
 ## Regenerating the Xcode project
 
-Any time you add, remove, or rename a file:
+Any time you add, remove, or rename a file, or change `project.yml`:
 
 ```bash
 xcodegen generate
 ```
 
-Don't hand-edit `DinoCode.xcodeproj` - it's regenerated from `project.yml`
-and isn't tracked in git.
+...then commit the result. `DinoCode.xcodeproj` is generated but **is**
+tracked in git (see above) - don't hand-edit it directly, always go through
+`project.yml` and regenerate.
